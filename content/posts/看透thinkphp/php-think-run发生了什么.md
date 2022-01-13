@@ -2,13 +2,17 @@
 title: "php think run 发生了什么"
 date: 2022-01-09T14:26:05+08:00
 draft: false
+isCJKLanguage: true
+categories:
+- 源码阅读
+tags:
+- 源码
+- PHP
 ---
-
-# php think run 发生了什么
 
 安装好TP6.0之后，根据官方的文档指引，我们可以运行这个命令来启动一个http服务器
 
-```shell
+```bash
 $ php think run
 
 ThinkPHP Development server is started On <http://0.0.0.0:8000/>
@@ -51,3 +55,7 @@ $ ./think run
 
 1. 加载autoload.php，初始化自动引入的功能
 2. 执行命令行的入口函数，即Console对象的run函数
+
+## console
+
+从代码中也可以看到，命令行应该实际上是同个console对象来执行的。那么

@@ -1,0 +1,32 @@
+baseURL: https://example.com
+languageCode: en-us
+title: Horace
+theme: mini
+
+defaultContentLanguage: zh
+
+taxonomies:
+  category: categories
+  tag: tags
+
+markup:
+  highlight:
+    guessSyntax: true
+    style: github
+  tableOfContents:
+    endLevel: 3
+    ordered: false
+    startLevel: 2
+
+social:
+  github: https://github.com/Horaceluo
+  stackoverflow: https://stackoverflow.com/users/5479615/horace
+
+# Site parameters
+params:
+  # Site Author
+  author: Horace
+  # Author biography
+  bio: Software Engineer
+  # Site Description, used in HTML meat
+  description: Horace's Blog
