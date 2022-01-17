@@ -44,3 +44,8 @@ Container一共实现了4个接口，他们分别是：
 - IteratorAggregate PHP的外部迭代器接口，意味着可以使用foreach来循环输出
 - Countable PHP的count接口，App对象可以作为count()函数的输入
 
+从Container实现的接口来看，Container很重要的一个功能是实例的获取、访问。ThinkPHP的Container也提供很多的方式(get、数组访问)来获取容器里的实例。
+
+### Container实例的来源
+
+上面讲到
