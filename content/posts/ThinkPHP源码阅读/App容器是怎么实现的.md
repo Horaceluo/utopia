@@ -48,4 +48,90 @@ Container一共实现了4个接口，他们分别是：
 
 ### Container实例的来源
 
-上面讲到
+Container的实例来源以前几个
+
+- bind 方法，可以将实例，闭包绑定到容器里
+- instance 方法，可以将类实例绑定到容器里
+- make 方法，创建实例并返回实例，创建之后也会将实例绑定到容器
+
+bind和instance方法比较类似，实际上他们绑定的对象和方式是有区别的。bind方法可以将实例、闭包绑定到容器。而instance方法只是把类实例绑定到容器。所以适用范围上，bind是大于instance方法的。在bind的实现里，如果绑定的是个对象，其实就是调用instance方法来进行绑定。
+
+#### bind 方法
+```php
+public function bind($abstract, $concrete = null)
+{
+    if (is_array($abstract)) {
+        foreach ($abstract as $key => $val) {
+            $this->bind($key, $val);
+        }
+    } elseif ($concrete instanceof Closure) {
+        $this->bind[$abstract] = $concrete;
+    } elseif (is_object($concrete)) {
+        $this->instance($abstract, $concrete);
+    } else {
+        $abstract = $this->getAlias($abstract);
+        if ($abstract != $concrete) {
+            $this->bind[$abstract] = $concrete;
+        }
+    }
+
+    return $this;
+}
+```
+
+#### instance 方法
+```php
+public function instance(string $abstract, $instance)
+{
+    $abstract = $this->getAlias($abstract);
+
+    $this->instances[$abstract] = $instance;
+
+    return $this;
+}
+```
+
+### $bind和$instance
+
+$bind 和 $instance 是容器两个比较重要的属性。$bind是用于存在绑定的“标识”，例如绑定的类名、闭包。$instance则是存储类的实例。
+
+App类里默认绑定的类
+
+```php
+/**
+     * 容器绑定标识
+     * @var array
+     */
+    protected $bind = [
+        'app'                     => App::class,
+        'cache'                   => Cache::class,
+        'config'                  => Config::class,
+        'console'                 => Console::class,
+        'cookie'                  => Cookie::class,
+        'db'                      => Db::class,
+        'env'                     => Env::class,
+        'event'                   => Event::class,
+        'http'                    => Http::class,
+        'lang'                    => Lang::class,
+        'log'                     => Log::class,
+        'middleware'              => Middleware::class,
+        'request'                 => Request::class,
+        'response'                => Response::class,
+        'route'                   => Route::class,
+        'session'                 => Session::class,
+        'validate'                => Validate::class,
+        'view'                    => View::class,
+        'filesystem'              => Filesystem::class,
+        'think\DbManager'         => Db::class,
+        'think\LogManager'        => Log::class,
+        'think\CacheManager'      => Cache::class,
+
+        // 接口依赖注入
+        'Psr\Log\LoggerInterface' => Log::class,
+    ];
+```
+
+$bind相当于一个占位符，先把某些标识和类名绑定起来，但是不进行实例化操作。等通过标识从容器里访问类的时候就取出类名，并实例化。实例化之后，如果围显示指定，就会将实例存储到$instance里。
+
+### 依赖注入
+
