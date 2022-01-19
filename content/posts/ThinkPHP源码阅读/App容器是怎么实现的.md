@@ -148,7 +148,7 @@ class A
 
 Class B
 {
-    public function __cunstruct(A $a)
+    public function __construct(A $a)
     {
 
     }
@@ -199,15 +199,15 @@ B类增加了C类的依赖, 在实例化的地方，可以保持不变。
 
 例如上面的例子，通过B类的反射，容器就能知道B类型的构造函数第一个参数是A类的实例，然后就会去寻找容器里是否已有A类的实例。如果没有，重新获取A类的反射，由于A类的构造器没有参数，所以容器就能将A类实例化并把A的实例化传入B的构造器里。如果A类型还有参数，容器就会继续“反射-实例化”的过程，直到所有的参数都满足实例化要求。
 
-正是由于有这个不管递归的实例化过程，如果A类，B类相互依赖了，就会造成循环依赖，导致实例化错误。
+也是由于有这个不断递归的实例化过程，如果A类，B类相互依赖了，就会造成循环依赖，导致实例化错误。
 
 ```php
 Class A {
-    public function __cunstruct(B $b) {}
+    public function __construct(B $b) {}
 }
 
 class B {
-    public function __cunstruct(A $a) {}
+    public function __construct(A $a) {}
 }
 
 // A和B循环依赖，无法实例化B
