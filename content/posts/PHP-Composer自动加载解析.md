@@ -61,3 +61,39 @@ return ComposerAutoloaderInitf73eef359dfdc5abf6a5c8d13adf36d8::getLoader();
 - autoload_psr4.php
 
 这个几个文件存储的是文件、类型的路径关系。当第三方依赖包有更新的时候，就会更新这个几个文件。
+
+## composer.json 中的autoload配置
+
+autoload配置项可以指定的目录与命名空间绑定在一起。这样composer的加载器就可以通过分析命名空间来确定需要加载哪份文件。
+autoload支持不同的代码规范的加载包括：PSR-4、PSR-0、Classmap、Files。
+
+### PSR-4
+
+PSR-4是自动加载器规范，它规定了如何根据将文件路径来实现自动加载。例如ThinkPHP项目中模板中的composer.json上的PSR-4规范
+
+```json
+{
+    "autoload": {
+        "psr-4": {
+            "app\\": "app"
+        }
+    }
+}
+```
+
+app目录下的文件都是顶级命名空间app。假设app目录下有目录结构
+```
+app
+  --controller
+    --User.php
+```
+对于User.php，那么里面应该有名为User的类，命名为`app\controller`
+
+```php
+namespace app\controller;
+
+class User
+{
+    
+}
+```
