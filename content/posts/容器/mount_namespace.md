@@ -13,3 +13,7 @@ Mount namespace可以将进程的挂载分开，由此可以实现在不同命�
 
 每个挂载都可以被标记为以下几种传播类型：
 
+- MS_SHARED: 挂载的事件和卸载的事件会在同一个peer group内传播
+- MS_PRIVATE：没有peer group，挂载的事件也不会传播，也不会接受到其他挂载、卸载事件
+- MS_SLAVE： 共享peer group的挂载和卸载事件会传播到当前挂载中，但是当前的挂载和卸载不会传播到其他的peer
+- MS_UNBINDABLE: 跟MS_PRIVATE差不多，但是多了不能绑定挂载的限制
