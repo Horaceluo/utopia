@@ -1,9 +1,3 @@
-[submodule "themes/tale"]
-	path = themes/tale
-	url = https://github.com/EmielH/tale-hugo.git
-[submodule "themes/mini"]
-	path = themes/mini
-	url = https://github.com/nodejh/hugo-theme-mini.git
 [submodule "themes/hugo-xmin"]
 	path = themes/hugo-xmin
 	url = git@github.com:yihui/hugo-xmin.git

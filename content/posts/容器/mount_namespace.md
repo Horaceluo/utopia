@@ -1,3 +1,14 @@
+---
+title: "Linux Namespace"
+date: 2022-03-19T09:25:05+08:00
+draft: true
+isCJKLanguage: true
+categories:
+- 容器原理
+tags:
+- 容器
+- linux
+---
 # MOUNT_NAMESPACE
 
 Mount namespace可以将进程的挂载分开，由此可以实现在不同命名空间里的进程都可以看到不一样的文件目录结构。
